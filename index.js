@@ -33,6 +33,14 @@ function fetchData(encodedText, size) {
         })
 }
 
+// Test function
+function fetchFoodData() {
+    return fetch('https://world.openfoodfacts.org/api/v0/product/737628064502.json')
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+}
+
 // testFetchData();
 testBarcode();
 createBarcode();
+console.log(fetchFoodData());
