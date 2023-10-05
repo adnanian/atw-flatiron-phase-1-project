@@ -11,10 +11,22 @@ function getWord(word) {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-        
-            const p = document.getElementById('definitions');
-            p.textContent = data[0]["meanings"][0]["definitions"][0]["definition"];
+            displayDefinitions(data);
         });
+}
+
+function displayDefinitions(data) {
+    const definitionsList = document.getElementById('definitions-list');
+    definitionsList.innerHTML = "";
+    for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < data[i]["meanings"].length; j++) {
+            for (let k = 0; k < data[i]["meanings"][j]["definitions"].length; k++) {
+                const li = document.createElement('li');
+                li.textContent = data[i]["meanings"][j]["definitions"][k]["definition"];
+                definitionsList.appendChild(li);
+            }
+        }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,4 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('display-word').addEventListener('mouseout', (e) => {
         e.target.style.color = 'black';
     });
+
+    // Click Event for word
+    document.getElementById('display-word').addEventListener('click', (e) => {
+        try {
+            
+        } catch (error) {
+            console.error(error.message);
+        }
+    })
 });

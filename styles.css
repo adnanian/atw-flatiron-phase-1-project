@@ -1,3 +1,12 @@
 * {
     background-color: lightslategray;
 }
+
+#page-title {
+    font-size: 100px;
+}
+
+#display-word {
+    font-size: 40px;
+    font-weight: bold;
+}
