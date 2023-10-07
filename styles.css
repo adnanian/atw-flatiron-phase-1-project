@@ -25,6 +25,12 @@ p {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+#nav-buttons {
+    display: inline-flex;
+    gap: 50px;
+    list-style-type: none;
+}
+
 button {
     background-color: rgb(181, 245, 63);
     border-color: #004;
