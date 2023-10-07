@@ -87,12 +87,12 @@ function displayDefinitionsAsTable(data) {
         // Create phonetic and play audio.
         const phonetic = document.createElement('h4');
         phonetic.textContent = data[i]["phonetic"];
-        phonetic.addEventListener('mouseover', (e) => {
+        phonetic.addEventListener('mouseenter', (e) => {
             e.target.style.color = 'red';
-            const audioObjects = data[i]["phonetics"].filter((phoneticObject) => phoneticObject.audio !== '');
-            audioObjects.forEach((audioObject) => new Audio(audioObject.audio).play());
+            const audioObject = data[i]["phonetics"].find((phoneticObject) => phoneticObject.audio !== '');
+            new Audio(audioObject.audio).play();
         });
-        phonetic.addEventListener('mouseout', (e) => e.target.style.color = 'black');
+        phonetic.addEventListener('mouseleave', (e) => e.target.style.color = 'black');
         definitionDisplay.appendChild(phonetic);
 
         for (let j = 0; j < data[i]["meanings"].length; j++) {
@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const word = e.target.word.value;
         document.getElementById('display-word').textContent = word;
+        e.target.word.value = "";
         console.log(word);
         console.log(getWord(word));
     });
