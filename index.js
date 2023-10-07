@@ -1,4 +1,8 @@
+// THE MAIN NON-AUTH API
 const API_PREFIX = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+
+// LINK TO GOOGLE SEARCH WHEN THE API FAILS TO RETRIEVE A DEFINITION FOR A WORD
+const WEB_SEARCH_URL_PREFIX = 'https://www.google.com/search?q=define+';
 
 // Helper function for correct grammar when displaying data.
 const correctArticleForSpeechPart = function (partOfSpeech) {
@@ -54,13 +58,42 @@ const createTableRow = function (rowData) {
 TODO
 */
 function getWord(word) {
+    let statusCode;
     return fetch(`${API_PREFIX}${word}`)
-        .then((response) => response.json())
+        .then((response) => {
+            statusCode = response.status;
+            console.log(`Status Code: ${statusCode}`);
+            return response.json();
+        })
         .then((data) => {
             console.log(data);
-            //displayDefinitionsAsList(data);
-            //displayDefinitionsAsTable(data);
-            const definitionDisplay = document.getElementById('definition-display');
+            if (statusCode === 404) {
+                // Clear definitionDisplay
+                const definitionDisplay = document.getElementById('definition-display');
+                clearChildrenFromElement(definitionDisplay);
+                // Add error Title - No definitions found
+                const errorHeader = document.createElement('h3');
+                errorHeader.textContent = data.title;
+                definitionDisplay.appendChild(errorHeader);
+                // Display message and resolution
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = `${data.message}\n${data.resolution}\n`;
+                definitionDisplay.appendChild(errorMessage);
+                // Allow option to go to the web
+                const webSearchButton = document.createElement('button');
+                webSearchButton.textContent = 'Find Definition(s) on the Web';
+                webSearchButton.addEventListener('click', (e) => {
+                    window.open(`${WEB_SEARCH_URL_PREFIX}${word}`, '_blank').focus();
+                });
+                definitionDisplay.appendChild(webSearchButton);
+            } else {
+                displayDefinitionsAsTable(data);
+            }
+        });
+}
+
+function displayDefinitionsAsTable(data) {
+    const definitionDisplay = document.getElementById('definition-display');
             clearChildrenFromElement(definitionDisplay);
             data.forEach((wordResult, wordResultIndex) => {
                 // Display phonetic and play pronunciation of the word.
@@ -103,7 +136,6 @@ function getWord(word) {
                     definitionDisplay.appendChild(table);
                 });
             });
-        });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

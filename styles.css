@@ -19,3 +19,17 @@ table, th, td {
     padding: 15px;
     text-align: left;
 }
+
+p {
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+button {
+    background-color: rgb(181, 245, 63);
+    border-color: #004;
+    border-radius: 5px;
+    color: #002;
+    font-size: 20px;
+    font-weight: bold;
+}
