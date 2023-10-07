@@ -67,10 +67,10 @@ function getWord(word) {
         })
         .then((data) => {
             console.log(data);
+            // Clear definitionDisplay
+            const definitionDisplay = document.getElementById('definition-display');
+            clearChildrenFromElement(definitionDisplay);
             if (statusCode === 404) {
-                // Clear definitionDisplay
-                const definitionDisplay = document.getElementById('definition-display');
-                clearChildrenFromElement(definitionDisplay);
                 // Add error Title - No definitions found
                 const errorHeader = document.createElement('h3');
                 errorHeader.textContent = data.title;
@@ -87,55 +87,49 @@ function getWord(word) {
                 });
                 definitionDisplay.appendChild(webSearchButton);
             } else {
-                displayDefinitionsAsTable(data);
+                data.forEach((wordResult, wordResultIndex) => {
+                    // Display phonetic and play pronunciation of the word.
+                    const phonetic = document.createElement('h4');
+                    phonetic.textContent = wordResult["phonetic"];
+                    phonetic.addEventListener('mouseenter', (e) => {
+                        e.target.style.color = 'red';
+                        const audioObject = wordResult["phonetics"].find((phoneticObject) => phoneticObject.audio !== '');
+                        if (audioObject !== undefined) {
+                            new Audio(audioObject.audio).play();
+                        }
+                    });
+                    phonetic.addEventListener('mouseleave', (e) => e.target.style.color = 'black');
+                    definitionDisplay.appendChild(phonetic);
+
+                    /*
+                    I substitute the word, "meaning", with "category". In the context
+                    of the free dictionary API, is what I interpret to be a collection
+                    of related definitions of a word.
+                    */
+                    wordResult["meanings"].forEach((category, categoryIndex) => {
+                        // Categorize
+                        const partOfSpeech = category["partOfSpeech"];
+                        const categoryHeader = document.createElement('h4');
+                        categoryHeader.textContent = `Category ${wordResultIndex + 1}.${categoryIndex + 1} - As ${correctArticleForSpeechPart(partOfSpeech)} ${capitalize(partOfSpeech)}`;
+                        const table = document.createElement('table');
+                        table.appendChild(createTableHeaders(['#', 'Definition', 'Example(s)']));
+
+                        // Display definition
+                        category["definitions"].forEach((definitionSubObject, definitionSubObjectIndex) => {
+                            // Retrieve example.
+                            let example = definitionSubObject["example"];
+                            example = (example === undefined) ? "N/A" : example;
+                            table.appendChild(createTableRow([
+                                `${wordResultIndex + 1}.${categoryIndex + 1}.${definitionSubObjectIndex + 1}`,
+                                definitionSubObject["definition"],
+                                example]));
+                        });
+                        definitionDisplay.appendChild(categoryHeader);
+                        definitionDisplay.appendChild(table);
+                    });
+                });
             }
         });
-}
-
-function displayDefinitionsAsTable(data) {
-    const definitionDisplay = document.getElementById('definition-display');
-            clearChildrenFromElement(definitionDisplay);
-            data.forEach((wordResult, wordResultIndex) => {
-                // Display phonetic and play pronunciation of the word.
-                const phonetic = document.createElement('h4');
-                phonetic.textContent = wordResult["phonetic"];
-                phonetic.addEventListener('mouseenter', (e) => {
-                    e.target.style.color = 'red';
-                    const audioObject = wordResult["phonetics"].find((phoneticObject) => phoneticObject.audio !== '');
-                    if (audioObject !== undefined) {
-                        new Audio(audioObject.audio).play();
-                    }
-                });
-                phonetic.addEventListener('mouseleave', (e) => e.target.style.color = 'black');
-                definitionDisplay.appendChild(phonetic);
-
-                /*
-                I substitute the word, "meaning", with "category". In the context
-                of the free dictionary API, is what I interpret to be a collection
-                of related definitions of a word.
-                */
-                wordResult["meanings"].forEach((category, categoryIndex) => {
-                    // Categorize
-                    const partOfSpeech = category["partOfSpeech"];
-                    const categoryHeader = document.createElement('h4');
-                    categoryHeader.textContent = `Category ${wordResultIndex + 1}.${categoryIndex + 1} - As ${correctArticleForSpeechPart(partOfSpeech)} ${capitalize(partOfSpeech)}`;
-                    const table = document.createElement('table');
-                    table.appendChild(createTableHeaders(['#', 'Definition', 'Example(s)']));
-
-                    // Display definition
-                    category["definitions"].forEach((definitionSubObject, definitionSubObjectIndex) => {
-                        // Retrieve example.
-                        let example = definitionSubObject["example"];
-                        example = (example === undefined) ? "N/A" : example;
-                        table.appendChild(createTableRow([
-                            `${wordResultIndex + 1}.${categoryIndex + 1}.${definitionSubObjectIndex + 1}`, 
-                            definitionSubObject["definition"], 
-                            example]));
-                    });
-                    definitionDisplay.appendChild(categoryHeader);
-                    definitionDisplay.appendChild(table);
-                });
-            });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
