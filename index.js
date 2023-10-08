@@ -26,22 +26,49 @@ const capitalize = function (word) {
 };
 
 // Helper function for clearing all children from a given node.
-const clearChildrenFromElement = function (node) {
+// const clearChildrenFromElement = function (node) {
+//     while (node.firstChild) {
+//         node.removeChild(node.lastChild);
+//     }
+// };
+
+// Helper function for clearning all children from a given node with an id. Returns the node afterwards.
+const emptyElementById = function (id) {
+    const node = document.getElementById(id);
     while (node.firstChild) {
         node.removeChild(node.lastChild);
     }
+    return node;
 };
 
 // Helper function for creating table headers, with a given array of header names.
-const createTableHeaders = function (headers) {
-    console.log(headers.length);
+// const createTableHeaders = function (headers) {
+//     console.log(headers.length);
+//     const tr = document.createElement('tr');
+//     headers.forEach((header) => {
+//         const th = document.createElement('th');
+//         th.textContent = header;
+//         tr.appendChild(th);
+//     });
+//     return tr;
+// };
+
+/*
+Helper function that does the following:
+- Creates a table element.
+- Adds headers to the table with a given array of header names.
+- Returns the table.
+*/
+const startTable = function (headers) {
+    const table = document.createElement('table');
     const tr = document.createElement('tr');
     headers.forEach((header) => {
         const th = document.createElement('th');
         th.textContent = header;
         tr.appendChild(th);
     });
-    return tr;
+    table.appendChild(tr);
+    return table;
 };
 
 
@@ -71,8 +98,7 @@ function getWord(word) {
         .then((data) => {
             console.log(data);
             // Clear definitionDisplay
-            const definitionDisplay = document.getElementById('definition-display');
-            clearChildrenFromElement(definitionDisplay);
+            const definitionDisplay = emptyElementById('definition-display');
             if (statusCode === 404) {
                 // Add error Title - No definitions found
                 const errorHeader = document.createElement('h3');
@@ -114,8 +140,7 @@ function getWord(word) {
                         const partOfSpeech = category["partOfSpeech"];
                         const categoryHeader = document.createElement('h4');
                         categoryHeader.textContent = `Category ${wordResultIndex + 1}.${categoryIndex + 1} - As ${correctArticleForSpeechPart(partOfSpeech)} ${capitalize(partOfSpeech)}`;
-                        const table = document.createElement('table');
-                        table.appendChild(createTableHeaders(['#', 'Definition', 'Example(s)']));
+                        const table = startTable(['#', 'Definition', 'Example(s)']);
 
                         // Display definition
                         category["definitions"].forEach((definitionSubObject, definitionSubObjectIndex) => {
@@ -141,10 +166,8 @@ function loadGlossary() {
         .then((data) => {
             console.log(data);
             // Clear definitionDisplay
-            const definitionDisplay = document.getElementById('definition-display');
-            clearChildrenFromElement(definitionDisplay);
-            const table = document.createElement('table');
-            table.appendChild(createTableHeaders(['#', 'Word', 'Phonetic', 'Definition', 'Example']));
+            const definitionDisplay = emptyElementById('definition-display');
+            const table = startTable(['#', 'Word', 'Phonetic', 'Definition', 'Example']);
             data.forEach((savedWord) => {
                 table.appendChild(createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example]));
             });
