@@ -135,6 +135,23 @@ function getWord(word) {
         });
 }
 
+function loadGlossary() {
+    return fetch(GLOSSARY_RESOURCE)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            // Clear definitionDisplay
+            const definitionDisplay = document.getElementById('definition-display');
+            clearChildrenFromElement(definitionDisplay);
+            const table = document.createElement('table');
+            table.appendChild(createTableHeaders(['#', 'Word', 'Phonetic', 'Definition', 'Example']));
+            data.forEach((savedWord) => {
+                table.appendChild(createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example]));
+            });
+            definitionDisplay.appendChild(table);
+        });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("We are connected!");
 
@@ -148,20 +165,10 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(getWord(word));
     });
 
-    // MouseOverEvent Listeners
-    document.getElementById('display-word').addEventListener('mouseover', (e) => {
-        e.target.style.color = 'green';
-    });
-    document.getElementById('display-word').addEventListener('mouseout', (e) => {
-        e.target.style.color = 'black';
+    // Click Events for the navigational buttons
+    document.getElementById('loader').addEventListener('click', () => {
+        document.getElementById('display-word').textContent = "GLOSSARY OF SAVED WORDS LOADED";
+        console.log(loadGlossary());
     });
 
-    // Click Event for word
-    document.getElementById('display-word').addEventListener('click', (e) => {
-        try {
-
-        } catch (error) {
-            console.error(error.message);
-        }
-    })
 });
