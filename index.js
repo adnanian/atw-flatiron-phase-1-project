@@ -4,6 +4,9 @@ const API_PREFIX = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 // LINK TO GOOGLE SEARCH WHEN THE API FAILS TO RETRIEVE A DEFINITION FOR A WORD
 const WEB_SEARCH_URL_PREFIX = 'https://www.google.com/search?q=define+';
 
+// URL FOR THE LOCAL DB.JSON FILE - WHERE ALL SAVED WORDS ARE STORED.
+const GLOSSARY_RESOURCE = 'http://localhost:3000/glossary';
+
 // Helper function for correct grammar when displaying data.
 const correctArticleForSpeechPart = function (partOfSpeech) {
     switch (partOfSpeech.toLowerCase()) {
@@ -89,7 +92,7 @@ function getWord(word) {
             } else {
                 data.forEach((wordResult, wordResultIndex) => {
                     // Display phonetic and play pronunciation of the word.
-                    const phonetic = document.createElement('h4');
+                    const phonetic = document.createElement('h3');
                     phonetic.textContent = wordResult["phonetic"];
                     phonetic.addEventListener('mouseenter', (e) => {
                         e.target.style.color = 'red';
