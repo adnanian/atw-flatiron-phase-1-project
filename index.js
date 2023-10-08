@@ -25,13 +25,6 @@ const capitalize = function (word) {
     return word[0].toUpperCase() + word.slice(1);
 };
 
-// Helper function for clearing all children from a given node.
-// const clearChildrenFromElement = function (node) {
-//     while (node.firstChild) {
-//         node.removeChild(node.lastChild);
-//     }
-// };
-
 // Helper function for clearning all children from a given node with an id. Returns the node afterwards.
 const emptyElementById = function (id) {
     const node = document.getElementById(id);
@@ -40,18 +33,6 @@ const emptyElementById = function (id) {
     }
     return node;
 };
-
-// Helper function for creating table headers, with a given array of header names.
-// const createTableHeaders = function (headers) {
-//     console.log(headers.length);
-//     const tr = document.createElement('tr');
-//     headers.forEach((header) => {
-//         const th = document.createElement('th');
-//         th.textContent = header;
-//         tr.appendChild(th);
-//     });
-//     return tr;
-// };
 
 /*
 Helper function that does the following:
@@ -78,8 +59,12 @@ const createTableRow = function (rowData) {
     const tr = document.createElement('tr');
     rowData.forEach((cell) => {
         const td = document.createElement('td');
-        td.textContent = cell;
-        tr.appendChild(td);
+        if (cell instanceof Element) {
+            td.appendChild(cell);
+        } else {
+            td.textContent = cell;
+        }
+        tr.appendChild(td); 
     });
     return tr;
 };
@@ -147,8 +132,15 @@ function getWord(word) {
                             // Retrieve example.
                             let example = definitionSubObject["example"];
                             example = (example === undefined) ? "N/A" : example;
+                            const wordAdderButton = document.createElement('button');
+                            wordAdderButton.textContent = `${wordResultIndex + 1}.${categoryIndex + 1}.${definitionSubObjectIndex + 1}`;
+                            wordAdderButton.setAttribute('title', 'Click on this numbered button to add this word and all other data in this row to your glossary.');
+                            wordAdderButton.addEventListener('click', () => {
+                                addToGlossary(word, phonetic.textContent, definitionSubObject["definition"], example)
+                            });
+
                             table.appendChild(createTableRow([
-                                `${wordResultIndex + 1}.${categoryIndex + 1}.${definitionSubObjectIndex + 1}`,
+                                wordAdderButton,
                                 definitionSubObject["definition"],
                                 example]));
                         });
@@ -160,6 +152,9 @@ function getWord(word) {
         });
 }
 
+/*
+TODO
+*/
 function loadGlossary() {
     return fetch(GLOSSARY_RESOURCE)
         .then((response) => response.json())
@@ -173,6 +168,41 @@ function loadGlossary() {
             });
             definitionDisplay.appendChild(table);
         });
+}
+
+// TODO
+function addToGlossary(word, phonetic = "", definition = "", example ="") {
+    const dialog = document.getElementById('glossary-dialog');
+    dialog.showModal();
+    dialog.querySelector('#form-purpose').textContent = "Add to Glossary";
+    dialog.querySelector('#word-to-add').textContent = word;
+    dialog.querySelector('#phonetic-field').value = phonetic;
+    dialog.querySelector('#definition-field').value = definition;
+    dialog.querySelector('#example-field').value = example;
+    dialog.querySelector('#glossary-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        dialog.close();
+        return fetch(GLOSSARY_RESOURCE, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    word: e.target.querySelector('#word-to-add').textContent,
+                    phonetic: e.target.querySelector('#phonetic-field').value,
+                    definition: e.target.querySelector('#definition-field').value,
+                    example: e.target.querySelector('#example-field').value
+                }    
+            )
+        })
+        .then((response) => response.json())
+        .then((newWord) => {
+            console.log("New word added!");
+            console.log(newWord);
+        });
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

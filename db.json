@@ -1,40 +1,46 @@
-
 {
   "glossary": [
     {
       "id": 1,
       "word": "licentious",
-      "phonetic": "/līˈsenSHəs/",
       "definition": "Lacking restraint, or ignoring societal standards, particularly in sexual conduct.",
+      "phonetic": "/līˈsenSHəs/",
       "example": "He was fired from the company after repeated complaints to HR about his licentious behavior towards his peers."
     },
     {
       "id": 2,
       "word": "plaudits",
-      "phonetic": "/plô′dĭt/",
       "definition": "(often in the plural) A mark or expression of applause; praise bestowed.",
+      "phonetic": "/plô′dĭt/",
       "example": "It is not wise to your daughter for every good deed she does, for this would teach her to only do good for the sake of others' validation."
     },
     {
       "id": 3,
       "word": "incendiary",
-      "phonetic": "/ɪnˈsɛn.djəɹ.i/",
       "definition": "Something capable of causing fire, particularly a weapon.",
-      "example": "The military used incendiaries to destroy the building. Fortunately, the fire didn't spread." 
+      "phonetic": "/ɪnˈsɛn.djəɹ.i/",
+      "example": "The military used incendiaries to destroy the building. Fortunately, the fire didn't spread."
     },
     {
       "id": 4,
       "word": "listless",
-      "phonetic": "/ˈlɪstləs/",
       "definition": "Lacking energy, enthusiasm, or liveliness.",
-      "example": "At work, I usually see Tom very happy, outgoing, and full of energy, but for the past few days, he has been very quiet, listless, and reserved." 
+      "phonetic": "/ˈlɪstləs/",
+      "example": "At work, I usually see Tom very happy, outgoing, and full of energy, but for the past few days, he has been very quiet, listless, and reserved."
     },
     {
       "id": 5,
       "word": "ad infinitum",
-      "phonetic": "/ˌæd ɪn.fəˈnaɪ.t̬əm/",
       "definition": "Endlessly; for ever; neverendingly.",
-      "example": "How about we actually work together to fix the problem instead of spending over ad infinitum playing the blame game." 
+      "phonetic": "/ˌæd ɪn.fəˈnaɪ.t̬əm/",
+      "example": "How about we actually work together to fix the problem instead of spending over ad infinitum playing the blame game."
+    },
+    {
+      "word": "man",
+      "phonetic": "[mɛn]",
+      "definition": "An adult male human.",
+      "example": "The show is especially popular with middle-aged men.",
+      "id": 6
     }
   ]
 }

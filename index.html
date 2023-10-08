@@ -11,7 +11,7 @@
     <h1 id="page-title">My Word Bank</h1>
     <form id="word-search-form">
         <label for="word">Word</label>
-        <input type="text" id="word" name="word"/>
+        <input type="search" id="word" name="word"/>
         <input type="submit" value="Submit">
     </form>
     <br/>
@@ -22,9 +22,27 @@
         <li><button id="remover">Remove from Glossary</button></li>
     </ul>
     <div id="word-display">
-        <h2 id="display-word" title="Click on the word to hear how it's pronounced.">DISPLAY WORD HERE</h2>
+        <h2 id="display-word" title="Hover over the phonetic(s) below to hear how it's pronounced.">DISPLAY WORD HERE</h2>
         <div id="definition-display">
         </div>
     </div>
+    <!--Glossary Form: Add Term-->
+    <dialog id="glossary-dialog">
+        <form id="glossary-form">
+            <h1 id="form-purpose" class="form-label">Add to Glossary</h1>
+            <h2 id="word-to-add" class="form-label">Word Here</h2>
+            <!--Add phonetic here-->
+            <label for="phonetic-field" class="form-label">Phonetic: </label>
+            <input type="text" id="phonetic-field" class="form-values" name="phonetic"/><br/>
+            <!--Add definition here-->
+            <label for="definition-field" class="form-label">Definition: </label>
+            <textarea id="definition-field" class="form-values" name="definition" rows="4" cols="50"></textarea><br/>
+            <!--Add example here-->
+            <label for="example-field" class="form-label">Example: </label>
+            <textarea id="example-field" class="form-values" name="example" rows="4" cols="50"></textarea><br/>
+            <!--Submit form-->
+            <input type="submit" value="Submit">
+        </form>
+    </dialog>
 </body>
 </html>
