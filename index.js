@@ -7,6 +7,16 @@ const WEB_SEARCH_URL_PREFIX = 'https://www.google.com/search?q=define+';
 // URL FOR THE LOCAL DB.JSON FILE - WHERE ALL SAVED WORDS ARE STORED.
 const GLOSSARY_RESOURCE = 'http://localhost:3000/glossary';
 
+const PHONETIC_INDEX = 2;
+
+const DEFINITION_INDEX = 3;
+
+const EXAMPLE_INDEX = 4;
+
+// If this variable is true, then when the dialog form is submitted, the inputs will replace the values of those in the target json object.
+// If this variable is false, then when the dialog form is submitted, a new json object will be created.
+let updatingSavedWord = false;
+
 // Helper function for correct grammar when displaying data.
 const correctArticleForSpeechPart = function (partOfSpeech) {
     switch (partOfSpeech.toLowerCase()) {
@@ -169,7 +179,7 @@ function loadGlossary() {
                 // Edit button
                 const editButton = document.createElement('button');
                 editButton.setAttribute('class' , 'word-manipulation');
-                editButton.textContent = '&#916;';
+                editButton.textContent = '<=';
                 editButton.style.backgroundColor = 'blue';
                 editButton.addEventListener('click', () => updateSavedWord(savedWord));
                 // Delete button
@@ -193,36 +203,29 @@ function addToGlossary(word, phonetic = "", definition = "", example ="") {
     dialog.querySelector('#phonetic-field').value = phonetic;
     dialog.querySelector('#definition-field').value = definition;
     dialog.querySelector('#example-field').value = example;
-    dialog.querySelector('#glossary-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        dialog.close();
-        const promise = fetch(GLOSSARY_RESOURCE, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(
-                {
-                    word: e.target.querySelector('#word-to-add').textContent,
-                    phonetic: e.target.querySelector('#phonetic-field').value,
-                    definition: e.target.querySelector('#definition-field').value,
-                    example: e.target.querySelector('#example-field').value
-                }    
-            )
-        })
-        .then((response) => response.json())
-        .then((newWord) => {
-            console.log("New word added!");
-            console.log(newWord);
-        });
-        console.log(promise);
-    });
 }
 
 // TODO
-function updateSavedWord(word) {
+function updateSavedWord(wordObject) {
+    const dialog = document.getElementById('glossary-dialog');
+    dialog.showModal();
+    dialog.querySelector('#form-purpose').textContent = `Update Term #${wordObject.id}`;
+    dialog.querySelector('#word-to-add').textContent = wordObject.word;
+    dialog.querySelector('#phonetic-field').value = wordObject.phonetic;
+    dialog.querySelector('#definition-field').value = wordObject.definition;
+    dialog.querySelector('#example-field').value = wordObject.example;
+}
 
+function reloadTerm(wordId) {
+    return fetch(`${GLOSSARY_RESOURCE}/${wordId}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const tableRow = Array.from(document.querySelector('table').children)[wordId];
+            const tableRowArray = Array.from(tableRow.children);
+            tableRowArray[PHONETIC_INDEX].textContent = data.phonetic;
+            tableRowArray[DEFINITION_INDEX].textContent = data.definition;
+            tableRowArray[EXAMPLE_INDEX].textContent = data.example;
+        });
 }
 
 // TODO
@@ -248,5 +251,62 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('display-word').textContent = "GLOSSARY OF SAVED WORDS LOADED";
         console.log(loadGlossary());
     });
+
+    // Add term to glossary
+    const dialog = document.getElementById('glossary-dialog');
+    dialog.querySelector('#submit-form').addEventListener('click', (e) => {
+        e.preventDefault();
+        dialog.close();
+        const form = dialog.querySelector('#glossary-form');
+        let promise;
+        if (updateSavedWord) {
+            const formPurpose = document.getElementById('form-purpose');
+            promise = fetch(`${GLOSSARY_RESOURCE}/${formPurpose.textContent.slice(formPurpose.textContent.length - 1)}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(
+                    {
+                        word: form.querySelector('#word-to-add').textContent,
+                        phonetic: form.querySelector('#phonetic-field').value,
+                        definition: form.querySelector('#definition-field').value,
+                        example: form.querySelector('#example-field').value
+                    }    
+                )
+            })
+            .then((response) => response.json())
+            .then((updatedTerm) => {
+                console.log("Term updated!");
+                console.log(updatedTerm);
+                console.log(reloadTerm(updatedTerm.id));
+            });
+        } else {
+            promise = fetch(GLOSSARY_RESOURCE, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(
+                    {
+                        word: form.querySelector('#word-to-add').textContent,
+                        phonetic: form.querySelector('#phonetic-field').value,
+                        definition: form.querySelector('#definition-field').value,
+                        example: form.querySelector('#example-field').value
+                    }    
+                )
+            })
+            .then((response) => response.json())
+            .then((newWord) => {
+                console.log("New word added!");
+                console.log(newWord);
+            });
+        }
+        console.log(promise);
+    });
+    // Cancel word addition/modification
+    dialog.querySelector('#cancel-form').addEventListener('click', () => {dialog.close()});
 
 });
