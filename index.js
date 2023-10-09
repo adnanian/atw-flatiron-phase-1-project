@@ -187,7 +187,9 @@ function loadGlossary() {
                 deleteButton.setAttribute('class', 'word-manipulation');
                 deleteButton.textContent = 'X';
                 deleteButton.style.backgroundColor = 'red';
-                deleteButton.addEventListener('click', () => removeFromGlossary(savedWord));
+                deleteButton.addEventListener('click', () => {
+                    removeFromGlossary(savedWord);
+                });
                 table.appendChild(createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]));
             });
             definitionDisplay.appendChild(table);
@@ -196,6 +198,7 @@ function loadGlossary() {
 
 // TODO
 function addToGlossary(word, phonetic = "", definition = "", example ="") {
+    updateSavedWord = false;
     const dialog = document.getElementById('glossary-dialog');
     dialog.showModal();
     dialog.querySelector('#form-purpose').textContent = "Add to Glossary";
@@ -207,6 +210,7 @@ function addToGlossary(word, phonetic = "", definition = "", example ="") {
 
 // TODO
 function updateSavedWord(wordObject) {
+    updateSavedWord = true;
     const dialog = document.getElementById('glossary-dialog');
     dialog.showModal();
     dialog.querySelector('#form-purpose').textContent = `Update Term #${wordObject.id}`;

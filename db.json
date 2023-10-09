@@ -41,6 +41,13 @@
       "definition": "An adult male human.",
       "example": "be a man",
       "id": 6
+    },
+    {
+      "word": "car",
+      "phonetic": "/kɑː/",
+      "definition": "A wheeled vehicle that moves independently, with at least three wheels, powered mechanically, steered by a driver and mostly for personal transportation.",
+      "example": "She drove her car to the mall.",
+      "id": 7
     }
   ]
 }
