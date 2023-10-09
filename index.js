@@ -95,6 +95,7 @@ function getWord(word) {
                 definitionDisplay.appendChild(errorMessage);
                 // Allow option to go to the web
                 const webSearchButton = document.createElement('button');
+                webSearchButton.setAttribute('class', 'navigation-button');
                 webSearchButton.textContent = 'Find Definition(s) on the Web';
                 webSearchButton.addEventListener('click', (e) => {
                     window.open(`${WEB_SEARCH_URL_PREFIX}${word}`, '_blank').focus();
@@ -133,6 +134,7 @@ function getWord(word) {
                             let example = definitionSubObject["example"];
                             example = (example === undefined) ? "N/A" : example;
                             const wordAdderButton = document.createElement('button');
+                            wordAdderButton.setAttribute('class', 'navigation-button');
                             wordAdderButton.textContent = `${wordResultIndex + 1}.${categoryIndex + 1}.${definitionSubObjectIndex + 1}`;
                             wordAdderButton.setAttribute('title', 'Click on this numbered button to add this word and all other data in this row to your glossary.');
                             wordAdderButton.addEventListener('click', () => {
@@ -162,9 +164,21 @@ function loadGlossary() {
             console.log(data);
             // Clear definitionDisplay
             const definitionDisplay = emptyElementById('definition-display');
-            const table = startTable(['#', 'Word', 'Phonetic', 'Definition', 'Example']);
+            const table = startTable(['#', 'Word', 'Phonetic', 'Definition', 'Example', 'Edit', 'Delete']);
             data.forEach((savedWord) => {
-                table.appendChild(createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example]));
+                // Edit button
+                const editButton = document.createElement('button');
+                editButton.setAttribute('class' , 'word-manipulation');
+                editButton.textContent = '&#916;';
+                editButton.style.backgroundColor = 'blue';
+                editButton.addEventListener('click', () => updateSavedWord(savedWord));
+                // Delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.setAttribute('class', 'word-manipulation');
+                deleteButton.textContent = 'X';
+                deleteButton.style.backgroundColor = 'red';
+                deleteButton.addEventListener('click', () => removeFromGlossary(savedWord));
+                table.appendChild(createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]));
             });
             definitionDisplay.appendChild(table);
         });
@@ -182,7 +196,7 @@ function addToGlossary(word, phonetic = "", definition = "", example ="") {
     dialog.querySelector('#glossary-form').addEventListener('submit', (e) => {
         e.preventDefault();
         dialog.close();
-        return fetch(GLOSSARY_RESOURCE, {
+        const promise = fetch(GLOSSARY_RESOURCE, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -202,7 +216,18 @@ function addToGlossary(word, phonetic = "", definition = "", example ="") {
             console.log("New word added!");
             console.log(newWord);
         });
+        console.log(promise);
     });
+}
+
+// TODO
+function updateSavedWord(word) {
+
+}
+
+// TODO
+function removeFromGlossary(word) {
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {

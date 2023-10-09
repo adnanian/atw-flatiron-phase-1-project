@@ -48,17 +48,24 @@ p {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-#nav-buttons {
+#main-glossary-buttons {
     display: inline-flex;
     gap: 50px;
     list-style-type: none;
 }
 
-button {
+button.navigation-button {
     background-color: rgb(181, 245, 63);
     border-color: #004;
     border-radius: 5px;
     color: #002;
     font-size: 20px;
     font-weight: bold;
+}
+
+.word-manipulation {
+    border-color: #402;
+    border-radius: 4px;
+    color: white;
+    font-weight: bolder;
 }
