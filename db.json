@@ -43,32 +43,11 @@
       "id": 6
     },
     {
-      "word": "car",
-      "phonetic": "/kɑː/",
-      "definition": "A wheeled vehicle that moves independently, with at least three wheels, powered mechanically, steered by a driver and mostly for personal transportation.",
-      "example": "She drove her car to the mall.",
-      "id": 7
-    },
-    {
       "word": "defer",
       "phonetic": "/dɪˈfɜː(ɹ)/",
       "definition": "To submit to the opinion or desire of another in respect to their judgment or authority.",
       "example": "I don't defer to bigots like you. You have no right to tell me what I should think.",
       "id": 8
-    },
-    {
-      "word": "salmon",
-      "phonetic": "/ˈsɑmən/",
-      "definition": "One of several species of fish, typically of the Salmoninae subfamily, brownish above with silvery sides and delicate pinkish-orange flesh; they ascend rivers to spawn.",
-      "example": "I had salmon for dinner tonight, and it was delicious.",
-      "id": 9
-    },
-    {
-      "word": "manure",
-      "phonetic": "/məˈnjɔː/",
-      "definition": "To apply manure (as fertilizer or soil improver).",
-      "example": "The farmer manured his fallow field.",
-      "id": 10
     }
   ]
 }

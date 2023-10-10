@@ -177,7 +177,7 @@ function loadGlossary() {
             console.log(data);
             // Clear definitionDisplay
             const definitionDisplay = emptyElementById('definition-display');
-            const table = startTable(['#', 'Word', 'Phonetic', 'Definition', 'Example', 'Edit', 'Delete']);
+            const table = startTable(['id', 'Word', 'Phonetic', 'Definition', 'Example', 'Edit', 'Delete']);
             data.forEach((savedWord) => {
                 let row;
                 // Edit button
@@ -192,6 +192,7 @@ function loadGlossary() {
                 deleteButton.textContent = 'X';
                 deleteButton.style.backgroundColor = 'red';
                 deleteButton.addEventListener('click', () => {
+                    let wordId = savedWord.id + 1;
                     row.remove();
                     removeFromGlossary(savedWord.id);
                 });
@@ -229,7 +230,8 @@ function updateSavedWord(wordObject) {
 
 // TO-COMMENT
 function reloadTerm(wordId) {
-    return fetch(`${GLOSSARY_RESOURCE}/${wordId}`)
+    try {
+        return fetch(`${GLOSSARY_RESOURCE}/${wordId}`)
         .then((response) => response.json())
         .then((data) => {
             const tableRow = Array.from(document.querySelector('table').children)[wordId];
@@ -238,6 +240,9 @@ function reloadTerm(wordId) {
             tableRowArray[DEFINITION_INDEX].textContent = data.definition;
             tableRowArray[EXAMPLE_INDEX].textContent = data.example;
         });
+    } catch (error) {
+        return null;
+    }
 }
 
 // TODO
@@ -288,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    "Accept": "application/json"
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(
                     {
@@ -310,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    "Accept": "application/json"
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(
                     {
