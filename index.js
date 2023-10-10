@@ -198,7 +198,7 @@ function loadGlossary() {
 
 // TODO
 function addToGlossary(word, phonetic = "", definition = "", example ="") {
-    updateSavedWord = false;
+    updatingSavedWord = false;
     const dialog = document.getElementById('glossary-dialog');
     dialog.showModal();
     dialog.querySelector('#form-purpose').textContent = "Add to Glossary";
@@ -210,7 +210,7 @@ function addToGlossary(word, phonetic = "", definition = "", example ="") {
 
 // TODO
 function updateSavedWord(wordObject) {
-    updateSavedWord = true;
+    updatingSavedWord = true;
     const dialog = document.getElementById('glossary-dialog');
     dialog.showModal();
     dialog.querySelector('#form-purpose').textContent = `Update Term #${wordObject.id}`;
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dialog.close();
         const form = dialog.querySelector('#glossary-form');
         let promise;
-        if (updateSavedWord) {
+        if (updatingSavedWord) {
             const formPurpose = document.getElementById('form-purpose');
             promise = fetch(`${GLOSSARY_RESOURCE}/${formPurpose.textContent.slice(formPurpose.textContent.length - 1)}`, {
                 method: 'PATCH',

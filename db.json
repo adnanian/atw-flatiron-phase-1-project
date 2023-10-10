@@ -48,6 +48,20 @@
       "definition": "A wheeled vehicle that moves independently, with at least three wheels, powered mechanically, steered by a driver and mostly for personal transportation.",
       "example": "She drove her car to the mall.",
       "id": 7
+    },
+    {
+      "word": "max",
+      "phonetic": "/mæks/",
+      "definition": "An extreme, a great extent, the highest limit.",
+      "example": "He pushed himself to the max.",
+      "id": 8
+    },
+    {
+      "word": "minimum",
+      "phonetic": "/ˈmɪn.ɪ.məm/",
+      "definition": "The lowest limit.",
+      "example": "We need a minimum of three staff members on duty at all time.",
+      "id": 9
     }
   ]
 }
