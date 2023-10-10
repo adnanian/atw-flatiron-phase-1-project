@@ -193,7 +193,7 @@ function loadGlossary() {
                 deleteButton.style.backgroundColor = 'red';
                 deleteButton.addEventListener('click', () => {
                     row.remove();
-                    removeFromGlossary(savedWord);
+                    removeFromGlossary(savedWord.id);
                 });
                 // Add row to table
                 row = createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]);
@@ -241,8 +241,19 @@ function reloadTerm(wordId) {
 }
 
 // TODO
-function removeFromGlossary(word) {
-
+function removeFromGlossary(wordId) {
+    return fetch(`${GLOSSARY_RESOURCE}/${wordId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            "Accept": "application/json"
+        }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        console.log(`The word, \"${data.word}\", has been removed from the glossary.`);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

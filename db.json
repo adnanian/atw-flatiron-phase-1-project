@@ -1,39 +1,39 @@
 {
   "glossary": [
     {
-      "id": 1,
       "word": "licentious",
       "definition": "Lacking restraint, or ignoring societal standards, particularly in sexual conduct.",
       "phonetic": "/līˈsenSHəs/",
-      "example": "He was fired from the company after repeated complaints to HR about his licentious behavior towards his peers."
+      "example": "He was fired from the company after repeated complaints to HR about his licentious behavior towards his peers.",
+      "id": 1
     },
     {
-      "id": 2,
       "word": "plaudits",
       "definition": "(often in the plural) A mark or expression of applause; praise bestowed.",
       "phonetic": "/plô′dĭt/",
-      "example": "It is not wise to your daughter for every good deed she does, for this would teach her to only do good for the sake of others' validation."
+      "example": "It is not wise to your daughter for every good deed she does, for this would teach her to only do good for the sake of others' validation.",
+      "id": 2
     },
     {
-      "id": 3,
       "word": "incendiary",
       "definition": "Something capable of causing fire, particularly a weapon.",
       "phonetic": "/ɪnˈsɛn.djəɹ.i/",
-      "example": "The military used incendiaries to destroy the building. Fortunately, the fire didn't spread."
+      "example": "The military used incendiaries to destroy the building. Fortunately, the fire didn't spread.",
+      "id": 3
     },
     {
-      "id": 4,
       "word": "listless",
       "definition": "Lacking energy, enthusiasm, or liveliness.",
       "phonetic": "/ˈlɪstləs/",
-      "example": "At work, I usually see Tom very happy, outgoing, and full of energy, but for the past few days, he has been very quiet, listless, and reserved."
+      "example": "At work, I usually see Tom very happy, outgoing, and full of energy, but for the past few days, he has been very quiet, listless, and reserved.",
+      "id": 4
     },
     {
-      "id": 5,
       "word": "ad infinitum",
       "definition": "Endlessly; for ever; neverendingly.",
       "phonetic": "/ˌæd ɪn.fəˈnaɪ.t̬əm/",
-      "example": "How about we actually work together to fix the problem instead of spending over ad infinitum playing the blame game."
+      "example": "How about we actually work together to fix the problem instead of spending over ad infinitum playing the blame game.",
+      "id": 5
     },
     {
       "word": "man",
@@ -50,32 +50,25 @@
       "id": 7
     },
     {
-      "word": "max",
-      "phonetic": "/mæks/",
-      "definition": "An extreme, a great extent, the highest limit.",
-      "example": "He pushed himself to the max.",
+      "word": "defer",
+      "phonetic": "/dɪˈfɜː(ɹ)/",
+      "definition": "To submit to the opinion or desire of another in respect to their judgment or authority.",
+      "example": "I don't defer to bigots like you. You have no right to tell me what I should think.",
       "id": 8
     },
     {
-      "word": "minimum",
-      "phonetic": "/ˈmɪn.ɪ.məm/",
-      "definition": "The lowest limit.",
-      "example": "We need a minimum of three staff members on duty at all time.",
+      "word": "salmon",
+      "phonetic": "/ˈsɑmən/",
+      "definition": "One of several species of fish, typically of the Salmoninae subfamily, brownish above with silvery sides and delicate pinkish-orange flesh; they ascend rivers to spawn.",
+      "example": "I had salmon for dinner tonight, and it was delicious.",
       "id": 9
     },
     {
-      "word": "drab",
-      "phonetic": "'drab",
-      "definition": "characterized by dullness and monotony : CHEERLESS",
-      "example": "What a drab life this man lives.",
+      "word": "manure",
+      "phonetic": "/məˈnjɔː/",
+      "definition": "To apply manure (as fertilizer or soil improver).",
+      "example": "The farmer manured his fallow field.",
       "id": 10
-    },
-    {
-      "word": "woman",
-      "phonetic": "/ˈwʊmɘn/",
-      "definition": "An adult female human.",
-      "example": "Be nice to women.",
-      "id": 11
     }
   ]
 }
