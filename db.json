@@ -62,6 +62,20 @@
       "definition": "The lowest limit.",
       "example": "We need a minimum of three staff members on duty at all time.",
       "id": 9
+    },
+    {
+      "word": "drab",
+      "phonetic": "'drab",
+      "definition": "characterized by dullness and monotony : CHEERLESS",
+      "example": "What a drab life this man lives.",
+      "id": 10
+    },
+    {
+      "word": "woman",
+      "phonetic": "/ˈwʊmɘn/",
+      "definition": "An adult female human.",
+      "example": "Be nice to women.",
+      "id": 11
     }
   ]
 }

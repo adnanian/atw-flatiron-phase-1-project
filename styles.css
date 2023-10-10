@@ -69,3 +69,8 @@ button.navigation-button {
     color: white;
     font-weight: bolder;
 }
+
+button[disabled="true"] {
+    background-color: #555;
+    color: #333;
+}

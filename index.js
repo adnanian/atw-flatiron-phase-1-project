@@ -111,6 +111,7 @@ function getWord(word) {
                     window.open(`${WEB_SEARCH_URL_PREFIX}${word}`, '_blank').focus();
                 });
                 definitionDisplay.appendChild(webSearchButton);
+                document.getElementById('adder').disabled = false;
             } else {
                 data.forEach((wordResult, wordResultIndex) => {
                     // Display phonetic and play pronunciation of the word.
@@ -160,6 +161,7 @@ function getWord(word) {
                         definitionDisplay.appendChild(table);
                     });
                 });
+                document.getElementById('adder').setAttribute('disabled', 'true');
             }
         });
 }
@@ -168,6 +170,7 @@ function getWord(word) {
 TODO
 */
 function loadGlossary() {
+    document.getElementById('adder').setAttribute('disabled', 'true');
     return fetch(GLOSSARY_RESOURCE)
         .then((response) => response.json())
         .then((data) => {
@@ -176,6 +179,7 @@ function loadGlossary() {
             const definitionDisplay = emptyElementById('definition-display');
             const table = startTable(['#', 'Word', 'Phonetic', 'Definition', 'Example', 'Edit', 'Delete']);
             data.forEach((savedWord) => {
+                let row;
                 // Edit button
                 const editButton = document.createElement('button');
                 editButton.setAttribute('class' , 'word-manipulation');
@@ -188,15 +192,18 @@ function loadGlossary() {
                 deleteButton.textContent = 'X';
                 deleteButton.style.backgroundColor = 'red';
                 deleteButton.addEventListener('click', () => {
+                    row.remove();
                     removeFromGlossary(savedWord);
                 });
-                table.appendChild(createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]));
+                // Add row to table
+                row = createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]);
+                table.appendChild(row);
             });
             definitionDisplay.appendChild(table);
         });
 }
 
-// TODO
+// TO-COMMENT
 function addToGlossary(word, phonetic = "", definition = "", example ="") {
     updatingSavedWord = false;
     const dialog = document.getElementById('glossary-dialog');
@@ -208,7 +215,7 @@ function addToGlossary(word, phonetic = "", definition = "", example ="") {
     dialog.querySelector('#example-field').value = example;
 }
 
-// TODO
+// TO-COMMENT
 function updateSavedWord(wordObject) {
     updatingSavedWord = true;
     const dialog = document.getElementById('glossary-dialog');
@@ -220,6 +227,7 @@ function updateSavedWord(wordObject) {
     dialog.querySelector('#example-field').value = wordObject.example;
 }
 
+// TO-COMMENT
 function reloadTerm(wordId) {
     return fetch(`${GLOSSARY_RESOURCE}/${wordId}`)
         .then((response) => response.json())
@@ -312,5 +320,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     // Cancel word addition/modification
     dialog.querySelector('#cancel-form').addEventListener('click', () => {dialog.close()});
+
+    // Add word not found in dictionary API to glossary
+    document.getElementById('adder').addEventListener('click', () => addToGlossary(document.getElementById('display-word').textContent));
 
 });
