@@ -74,3 +74,53 @@ button[disabled="true"] {
     background-color: #555;
     color: #333;
 }
+
+#glossary-dialog {
+    border: 15px;
+    border-color: #111;
+    border-radius: 25px;
+    background-color: #0f0;
+}
+
+#glossary-form {
+    background-color: inherit;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    width: 500px;
+    height: 400px;
+}
+
+.glossary-div {
+    background-color: inherit;
+    font-family: inherit;
+    color: inherit;
+    margin-left: 30px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    text-align: left;
+    width: fit-content;
+}
+
+.glossary-div > label {
+    background-color: inherit;
+    font-family: inherit;
+    font-weight: bold;
+    color: inherit;
+}
+
+#glossary-form > :is(h1, h2) {
+    background-color: inherit;
+    font-family: inherit;
+    color: inherit;
+}
+
+.glossary-div > .form-values {
+    background-color: white;
+    border: 5px;
+    border-color: black;
+    color: inherit;
+    font-family: inherit;
+    font-size: 15px;
+    resize: none;
+}
+

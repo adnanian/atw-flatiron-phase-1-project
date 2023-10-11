@@ -30,14 +30,20 @@
             <h1 id="form-purpose" class="form-label">Add to Glossary</h1>
             <h2 id="word-to-add" class="form-label">Word Here</h2>
             <!--Add phonetic here-->
-            <label for="phonetic-field" class="form-label">Phonetic: </label>
-            <input type="text" id="phonetic-field" class="form-values" name="phonetic"/><br/>
+            <div class="glossary-div">
+                <label for="phonetic-field" class="form-label">Phonetic: </label>
+                <input type="text" id="phonetic-field" class="form-values" name="phonetic"/>
+            </div>
             <!--Add definition here-->
-            <label for="definition-field" class="form-label">Definition: </label>
-            <textarea id="definition-field" class="form-values" name="definition" rows="4" cols="50"></textarea><br/>
+            <div class="glossary-div">
+                <label for="definition-field" class="form-label">Definition: </label>
+                <textarea id="definition-field" class="form-values" name="definition" rows="4" cols="50"></textarea>
+            </div>
             <!--Add example here-->
-            <label for="example-field" class="form-label">Example: </label>
-            <textarea id="example-field" class="form-values" name="example" rows="4" cols="50"></textarea><br/>
+            <div class="glossary-div">
+                <label for="example-field" class="form-label">Example: </label>
+                <textarea id="example-field" class="form-values" name="example" rows="4" cols="50"></textarea>
+            </div>
             <!--Submit form-->
             <button id="submit-form" type="Submit">Submit</button>
             <button id="cancel-form" type="Button">Cancel</button>

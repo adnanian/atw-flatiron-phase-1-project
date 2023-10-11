@@ -7,15 +7,20 @@ const WEB_SEARCH_URL_PREFIX = 'https://www.google.com/search?q=define+';
 // URL FOR THE LOCAL DB.JSON FILE - WHERE ALL SAVED WORDS ARE STORED.
 const GLOSSARY_RESOURCE = 'http://localhost:3000/glossary';
 
+// TO COMMENT
 const PHONETIC_INDEX = 2;
 
+// TO COMMENT
 const DEFINITION_INDEX = 3;
 
+// TO COMMENT
 const EXAMPLE_INDEX = 4;
 
 // If this variable is true, then when the dialog form is submitted, the inputs will replace the values of those in the target json object.
 // If this variable is false, then when the dialog form is submitted, a new json object will be created.
 let updatingSavedWord = false;
+
+let glossaryLoaded = false;
 
 // Helper function for correct grammar when displaying data.
 const correctArticleForSpeechPart = function (partOfSpeech) {
@@ -83,6 +88,7 @@ const createTableRow = function (rowData) {
 TODO
 */
 function getWord(word) {
+    glossaryLoaded = false;
     let statusCode;
     return fetch(`${API_PREFIX}${word}`)
         .then((response) => {
@@ -170,6 +176,7 @@ function getWord(word) {
 TODO
 */
 function loadGlossary() {
+    glossaryLoaded = true;
     document.getElementById('adder').setAttribute('disabled', 'true');
     return fetch(GLOSSARY_RESOURCE)
         .then((response) => response.json())
@@ -177,8 +184,8 @@ function loadGlossary() {
             console.log(data);
             // Clear definitionDisplay
             const definitionDisplay = emptyElementById('definition-display');
-            const table = startTable(['id', 'Word', 'Phonetic', 'Definition', 'Example', 'Edit', 'Delete']);
-            data.forEach((savedWord) => {
+            const table = startTable(['#', 'Word', 'Phonetic', 'Definition', 'Example', 'Edit', 'Delete']);
+            data.forEach((savedWord, savedWordIndex) => {
                 let row;
                 // Edit button
                 const editButton = document.createElement('button');
@@ -192,12 +199,24 @@ function loadGlossary() {
                 deleteButton.textContent = 'X';
                 deleteButton.style.backgroundColor = 'red';
                 deleteButton.addEventListener('click', () => {
-                    let wordId = savedWord.id + 1;
+                    let removedWordIndex = savedWordIndex;
                     row.remove();
                     removeFromGlossary(savedWord.id);
+                    const tableRows = Array.from(table.children);
+                    /*
+                    The letter, 'j', represents the new word number in the glossary table.
+                    The initial value is the row previous to that which has been removed.
+                    The last value is the last row in the table.
+                    THe loop iterates from that range to renumber the rows.
+                    */
+                    for (let j = removedWordIndex; j < tableRows.length; j++) {
+                        // const tableRowData = Array.from(tableRows[j].children);
+                        // console.log(`Table data at index ${j}: ${tableRowData[0].textContent} - ${tableRowData[1].textContent}`);
+                        tableRows[j].querySelector('td').textContent = j;
+                    }
                 });
                 // Add row to table
-                row = createTableRow([savedWord.id, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]);
+                row = createTableRow([savedWordIndex + 1, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]);
                 table.appendChild(row);
             });
             definitionDisplay.appendChild(table);
@@ -231,6 +250,9 @@ function updateSavedWord(wordObject) {
 // TO-COMMENT
 function reloadTerm(wordId) {
     try {
+        if (!glossaryLoaded) {
+            throw error("Glossary must be currently displayed to the user in order for the word object information to be reloaded.");
+        }
         return fetch(`${GLOSSARY_RESOURCE}/${wordId}`)
         .then((response) => response.json())
         .then((data) => {
@@ -241,7 +263,7 @@ function reloadTerm(wordId) {
             tableRowArray[EXAMPLE_INDEX].textContent = data.example;
         });
     } catch (error) {
-        return null;
+        alert(error.message);
     }
 }
 
@@ -257,7 +279,7 @@ function removeFromGlossary(wordId) {
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
-        console.log(`The word, \"${data.word}\", has been removed from the glossary.`);
+        console.log(`A word has been removed from the glossary.`);
     });
 }
 

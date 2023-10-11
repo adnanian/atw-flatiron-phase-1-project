@@ -36,18 +36,32 @@
       "id": 5
     },
     {
-      "word": "man",
-      "phonetic": "[mɛn]",
-      "definition": "An adult male human.",
-      "example": "be a man",
-      "id": 6
-    },
-    {
       "word": "defer",
       "phonetic": "/dɪˈfɜː(ɹ)/",
       "definition": "To submit to the opinion or desire of another in respect to their judgment or authority.",
       "example": "I don't defer to bigots like you. You have no right to tell me what I should think.",
       "id": 8
+    },
+    {
+      "word": "organization",
+      "phonetic": "/ˌɔɹɡənaɪˈzeɪʃən/",
+      "definition": "A group of people or other legal entities with an explicit purpose and written rules.",
+      "example": "In response to the crisis, the nations in the region formed an organization.   If you want to be part of this organization, you have to follow its rules.",
+      "id": 16
+    },
+    {
+      "word": "card",
+      "phonetic": "/kaːd/",
+      "definition": "A business card.",
+      "example": "The realtor gave me her card so I could call if I had any questions about buying a house.",
+      "id": 18
+    },
+    {
+      "word": "sever",
+      "phonetic": "/ˈsɛv.ɚ/",
+      "definition": "To cut free.",
+      "example": "After he graduated, he severed all links to his family.",
+      "id": 20
     }
   ]
 }
