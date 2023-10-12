@@ -18,6 +18,7 @@
     font-weight: bolder;
 }
 
+/*Search field for the API.*/
 #word {
     background-color: whitesmoke;
 }
@@ -32,6 +33,7 @@ h4 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+/*Applies to both glossary and definition tables.*/
 table, th, td {
     border: 2px solid;
     border-block-color: navy;
@@ -54,6 +56,10 @@ p {
     list-style-type: none;
 }
 
+/*
+This class is also in the word categories displayed
+in the definition tables.
+*/
 button.navigation-button {
     background-color: rgb(181, 245, 63);
     border-color: #004;
@@ -63,6 +69,9 @@ button.navigation-button {
     font-weight: bold;
 }
 
+/*
+For the buttons used to modify or delete glossary words.
+*/
 .word-manipulation {
     border-color: #402;
     border-radius: 4px;
@@ -70,6 +79,7 @@ button.navigation-button {
     font-weight: bolder;
 }
 
+/* Show the user that the glossary button is currently disabled.*/
 button[disabled="true"] {
     background-color: #555;
     color: #333;
@@ -108,12 +118,22 @@ button[disabled="true"] {
     color: inherit;
 }
 
+/*
+Ensure that the background and foreground colors
+are the same for all elements inside the dialog.
+*/
 #glossary-form > :is(h1, h2) {
     background-color: inherit;
     font-family: inherit;
     color: inherit;
 }
 
+/*
+Text inputs are easier for the user to
+read when the background and foreground
+colors are normal (i.e. white and black
+respectively).
+*/
 .glossary-div > .form-values {
     background-color: white;
     border: 5px;
