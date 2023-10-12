@@ -7,19 +7,26 @@ const WEB_SEARCH_URL_PREFIX = 'https://www.google.com/search?q=define+';
 // URL FOR THE LOCAL DB.JSON FILE - WHERE ALL SAVED WORDS ARE STORED.
 const GLOSSARY_RESOURCE = 'http://localhost:3000/glossary';
 
-// TO COMMENT
+/*
+* The following consonants represent an index of an array of table row data.
+* In this context, the table row data would be from the glossary that was
+* displayed to the user after successfully calling a fetch request.
+*/
+
+// In a table row of data for a saved word, this value is the index of the word's phonetic pronunciation.
 const PHONETIC_INDEX = 2;
 
-// TO COMMENT
+// In a table row of data for a saved word, this value is the index of the word's definition.
 const DEFINITION_INDEX = 3;
 
-// TO COMMENT
+// In a table row of data for a saved word, this value is the index of the word's example usage.
 const EXAMPLE_INDEX = 4;
 
 // If this variable is true, then when the dialog form is submitted, the inputs will replace the values of those in the target json object.
 // If this variable is false, then when the dialog form is submitted, a new json object will be created.
 let updatingSavedWord = false;
 
+// If true, then methods that rely on the glossary to be currently displayed with run successfully.
 let glossaryLoaded = false;
 
 // Helper function for correct grammar when displaying data.
@@ -85,7 +92,8 @@ const createTableRow = function (rowData) {
 };
 
 /*
-TODO
+Uses a fetch request to retrieve a word from the free dicitonary API, typed in the user via form,
+and all its information that the API contains regarding it.
 */
 function getWord(word) {
     glossaryLoaded = false;
@@ -100,15 +108,20 @@ function getWord(word) {
             console.log(data);
             // Clear definitionDisplay
             const definitionDisplay = emptyElementById('definition-display');
+
+            // If no definition is found, the appropriate message is displayed to the user.
             if (statusCode === 404) {
+
                 // Add error Title - No definitions found
                 const errorHeader = document.createElement('h3');
                 errorHeader.textContent = data.title;
                 definitionDisplay.appendChild(errorHeader);
+
                 // Display message and resolution
                 const errorMessage = document.createElement('p');
                 errorMessage.textContent = `${data.message}\n${data.resolution}\n`;
                 definitionDisplay.appendChild(errorMessage);
+
                 // Allow option to go to the web
                 const webSearchButton = document.createElement('button');
                 webSearchButton.setAttribute('class', 'navigation-button');
@@ -119,7 +132,10 @@ function getWord(word) {
                 definitionDisplay.appendChild(webSearchButton);
                 document.getElementById('adder').disabled = false;
             } else {
+
+                // Word and definitions are found.
                 data.forEach((wordResult, wordResultIndex) => {
+
                     // Display phonetic and play pronunciation of the word.
                     const phonetic = document.createElement('h3');
                     phonetic.textContent = wordResult["phonetic"];
@@ -139,7 +155,8 @@ function getWord(word) {
                     of related definitions of a word.
                     */
                     wordResult["meanings"].forEach((category, categoryIndex) => {
-                        // Categorize
+
+                        // Categorize (create category number in the form of #.#)
                         const partOfSpeech = category["partOfSpeech"];
                         const categoryHeader = document.createElement('h4');
                         categoryHeader.textContent = `Category ${wordResultIndex + 1}.${categoryIndex + 1} - As ${correctArticleForSpeechPart(partOfSpeech)} ${capitalize(partOfSpeech)}`;
@@ -147,9 +164,12 @@ function getWord(word) {
 
                         // Display definition
                         category["definitions"].forEach((definitionSubObject, definitionSubObjectIndex) => {
+
                             // Retrieve example.
                             let example = definitionSubObject["example"];
                             example = (example === undefined) ? "N/A" : example;
+
+                            // Create a button with the text as a subcategory in the format of #.#.#.
                             const wordAdderButton = document.createElement('button');
                             wordAdderButton.setAttribute('class', 'navigation-button');
                             wordAdderButton.textContent = `${wordResultIndex + 1}.${categoryIndex + 1}.${definitionSubObjectIndex + 1}`;
@@ -158,6 +178,7 @@ function getWord(word) {
                                 addToGlossary(word, phonetic.textContent, definitionSubObject["definition"], example)
                             });
 
+                            // Add definition to table.
                             table.appendChild(createTableRow([
                                 wordAdderButton,
                                 definitionSubObject["definition"],
@@ -173,7 +194,9 @@ function getWord(word) {
 }
 
 /*
-TODO
+Requests all objects to be retrieved from the db.json file.
+Displays all saved words from the db.json file to the user.
+Each object in the file has five attributes in it (including the id).
 */
 function loadGlossary() {
     glossaryLoaded = true;
@@ -184,25 +207,40 @@ function loadGlossary() {
             console.log(data);
             // Clear definitionDisplay
             const definitionDisplay = emptyElementById('definition-display');
+
+            // Start a new table of saved words.
+            // Note: # is not the id, but the row number.
             const table = startTable(['#', 'Word', 'Phonetic', 'Definition', 'Example', 'Edit', 'Delete']);
+
+            // Display each object as a table row.
             data.forEach((savedWord, savedWordIndex) => {
                 let row;
-                // Edit button
+                // Edit button - which allows the user to edit any attribute of the word object.
                 const editButton = document.createElement('button');
                 editButton.setAttribute('class' , 'word-manipulation');
                 editButton.textContent = '<=';
                 editButton.style.backgroundColor = 'blue';
                 editButton.addEventListener('click', () => updateSavedWord(savedWord));
-                // Delete button
+
+                // Delete button - which allows the user to remove the word from the glossary.
                 const deleteButton = document.createElement('button');
                 deleteButton.setAttribute('class', 'word-manipulation');
                 deleteButton.textContent = 'X';
                 deleteButton.style.backgroundColor = 'red';
+
+                /*
+                When a word is removed from the glossary, it first takes the row off
+                the table, then proceeds to correct the row numbers of the rows
+                superceding the deleted row.
+                */
                 deleteButton.addEventListener('click', () => {
+
+                    // Delete word.
                     let removedWordIndex = savedWordIndex;
                     row.remove();
                     removeFromGlossary(savedWord.id);
                     const tableRows = Array.from(table.children);
+
                     /*
                     The letter, 'j', represents the new word number in the glossary table.
                     The initial value is the row previous to that which has been removed.
@@ -215,6 +253,7 @@ function loadGlossary() {
                         tableRows[j].querySelector('td').textContent = j;
                     }
                 });
+
                 // Add row to table
                 row = createTableRow([savedWordIndex + 1, savedWord.word, savedWord.phonetic, savedWord.definition, savedWord.example, editButton, deleteButton]);
                 table.appendChild(row);
@@ -223,7 +262,8 @@ function loadGlossary() {
         });
 }
 
-// TO-COMMENT
+// Display the glossary form to the user so that he/she can add a new entry to the glossary.
+// Event listener is inside the event listener of "DOMContentLoaded", which is towrds the bottom of the code.
 function addToGlossary(word, phonetic = "", definition = "", example ="") {
     updatingSavedWord = false;
     const dialog = document.getElementById('glossary-dialog');
@@ -235,7 +275,8 @@ function addToGlossary(word, phonetic = "", definition = "", example ="") {
     dialog.querySelector('#example-field').value = example;
 }
 
-// TO-COMMENT
+// Display the glossary form to the user so that he/she can update a currently existing entry to the glossary.
+// Event listener is inside the event listener of "DOMContentLoaded", which is towrds the bottom of the code.
 function updateSavedWord(wordObject) {
     updatingSavedWord = true;
     const dialog = document.getElementById('glossary-dialog');
@@ -247,7 +288,9 @@ function updateSavedWord(wordObject) {
     dialog.querySelector('#example-field').value = wordObject.example;
 }
 
-// TO-COMMENT
+// Updates a given word object's information to the glossary table.
+// This method should be called only after a PATCH request, and this method will only be succesful if the glossary is currently displayed to the user.
+// Event listener is inside the event listener of "DOMContentLoaded", which is towrds the bottom of the code.
 function reloadTerm(wordId) {
     try {
         if (!glossaryLoaded) {
@@ -267,7 +310,7 @@ function reloadTerm(wordId) {
     }
 }
 
-// TODO
+// Removes a word from the glossary.
 function removeFromGlossary(wordId) {
     return fetch(`${GLOSSARY_RESOURCE}/${wordId}`, {
         method: 'DELETE',
@@ -283,6 +326,7 @@ function removeFromGlossary(wordId) {
     });
 }
 
+// Begin initializations.
 document.addEventListener("DOMContentLoaded", () => {
     console.log("We are connected!");
 
@@ -302,13 +346,15 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(loadGlossary());
     });
 
-    // Add term to glossary
+    // Add/update term to glossary
     const dialog = document.getElementById('glossary-dialog');
     dialog.querySelector('#submit-form').addEventListener('click', (e) => {
         e.preventDefault();
         dialog.close();
         const form = dialog.querySelector('#glossary-form');
         let promise;
+
+        //  When the user wants to update a word object.
         if (updatingSavedWord) {
             const formPurpose = document.getElementById('form-purpose');
             promise = fetch(`${GLOSSARY_RESOURCE}/${formPurpose.textContent.slice(formPurpose.textContent.length - 1)}`, {
@@ -333,6 +379,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(reloadTerm(updatedTerm.id));
             });
         } else {
+
+            // When the user wants to add a new word object.
             promise = fetch(GLOSSARY_RESOURCE, {
                 method: 'POST',
                 headers: {
