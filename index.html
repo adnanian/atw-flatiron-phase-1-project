@@ -10,16 +10,24 @@
 <body>
     <h1 id="page-title">My Word Bank</h1>
     <img src="WordBankLogo.jpg" width="200px" height="200px"/>
+    <!--Search words from the API using this form.-->
     <form id="word-search-form">
         <label for="word">Word</label>
         <input type="search" id="word" name="word"/>
         <input type="submit" value="Submit">
     </form>
     <br/>
+    <!--Primary navigational buttons for glossary.-->
     <ul id="main-glossary-buttons">
         <li><button id="loader" class="navigation-button" title="Click this button to load all words saved in your custom glossary.">Load Glossary</button></li>
         <li><button id="adder" class="navigation-button" title="Click this button to add words not found in the word bank to your custom glossary." disabled="true">Add to Glossary</button></li>
     </ul>
+    <!--
+        This div is used in one of two ways:
+        1.  Display a word and a table of all its definitions and examples provided by the
+            free dictionary API.
+        2.  Display the JSON objects (i.e. the glossary of words saved by the user).
+    -->
     <div id="word-display">
         <h2 id="display-word" title="Hover over the phonetic(s) below to hear how it's pronounced.">DISPLAY WORD HERE</h2>
         <div id="definition-display">
