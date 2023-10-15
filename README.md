@@ -69,7 +69,8 @@ Once you have ensured that the JSON server is installed, you'll have to run it i
 
 If you are following my recommendation, open up the terminal on VS code and type: <code>explorer.exe index.html</code>
 
-If you see the following page open up on your browser, then you have followed all instructions correctly.
+If you see the following page open up on your browser, then you have followed all instructions correctly:
+<img src="My Word Bank - Successfully Launched" alt="Successfully loaded application."/>
 
 ## Usage
 
