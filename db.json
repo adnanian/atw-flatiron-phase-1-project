@@ -69,6 +69,13 @@
       "definition": "An expert at something.",
       "example": "Mark Twain was a master of fiction.",
       "id": 21
+    },
+    {
+      "word": "nein",
+      "phonetic": "nain",
+      "definition": "German word for \"no\".",
+      "example": "Nein! Nein! Nein!",
+      "id": 22
     }
   ]
 }
