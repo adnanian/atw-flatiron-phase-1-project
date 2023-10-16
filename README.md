@@ -12,18 +12,18 @@ Adnanian Application #2
 ## Table of Contents
 
 1. [Overview](#overview)
-    1. [What This Application Does](#description)
-    2. [Why This Application was Created](#motivation)
+    1. [What This Application Does](#what-this-application-does)
+    2. [Why This Application was Created](#why-this-application-was-created)
     3. [Technologies](#technologies)
     4. [Limitations](#limitations)
 2. [Installation & Execution](#installation--execution)
-    1. [Saving a Copy of the Project onto Your Local Machine](#installation)
-    2. [Running the Project](#execution)
+    1. [Installation](#s)
+    2. [Execution](#execution)
 3. [Usage](#usage)
-    1. [Searching for a Word](#word-search)
+    1. [Searching for a Word](#searching-for-a-word)
         1. [Search Results Found](#search-results-found)
         2. [Search Results Not Found](#search-results-not-found)
-    2. [Working with the Glossary](#glossary)
+    2. [Working with the Glossary](#working-with-the-glossary)
 4. [Future Plans](#future-plans)
 5. [Credits](#credits)
 
@@ -71,13 +71,13 @@ Although this application functions as expected, there are some challenges that 
 
 ## Installation & Execution
 
-### Saving a Copy of the Project onto Your Local Machine
+### Installation
 
 The good news is that installing this application is quite easy. This project is saved in my <a href="https://github.com/adnanian/atw-flatiron-phase-1-project" target="_blank">Flatiron School Phase 1 Project</a>. Please ensure that you have a GitHub account before attempting to install this application onto your local machine. Also ensure that you have Git installed on your local machine as well. If you don't, refer to <a href="https://github.com/git-guides/install-git" target="_blank">this help guide here.</a>
 
 Once you have ensured the above two checks have passed, then all that's left is for you to fork and clone this repository. For those who are not as familiar with GitHub, here is a quick <a href="https://www.geeksforgeeks.org/difference-between-fork-and-clone-in-github/" target="_blank">GeeksForGeeks guide on forking and cloning</a>.
 
-### Running the Project
+### Execution
 
 To run the project, <b>open up your terminal</b>. Then, navigate to the directory where you have the repository cloned, and open the project. I stronly recommend opening this project with <a href="https://code.visualstudio.com/download" target="_blank">Visual Studio Code</a>, but you may use any other application (such as Notepad++) of your choosing as long as you're able to open up the HTML file on your browser. <b>DO NOT CLOSE THE TERMINAL YET!</b>
 

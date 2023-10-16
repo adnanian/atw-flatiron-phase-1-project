@@ -36,10 +36,10 @@
       "id": 5
     },
     {
-      "word": "defer",
-      "phonetic": "/dɪˈfɜː(ɹ)/",
-      "definition": "To submit to the opinion or desire of another in respect to their judgment or authority.",
-      "example": "I don't defer to bigots like you. You have no right to tell me what I should think.",
+      "word": "card",
+      "phonetic": "/kaːd/",
+      "definition": "A business card, or a Yu-Gi-Oh card.",
+      "example": "The realtor gave me her card so I could call if I had any questions about buying a house. Draw 2 cards.",
       "id": 8
     },
     {
@@ -71,11 +71,18 @@
       "id": 21
     },
     {
-      "word": "nein",
-      "phonetic": "nain",
-      "definition": "German word for \"no\".",
-      "example": "Nein! Nein! Nein!",
-      "id": 22
+      "word": "car",
+      "phonetic": "/kɑː/",
+      "definition": "A passenger-carrying unit in a subway or elevated train, whether powered or not.",
+      "example": "From the frontmost car of the subway, he filmed the progress through the tunnel.",
+      "id": 23
+    },
+    {
+      "word": "card",
+      "phonetic": "/kaːd/",
+      "definition": "A business card.",
+      "example": "The realtor gave me her card so I could call if I had any questions about buying a house.",
+      "id": 24
     }
   ]
 }
