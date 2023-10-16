@@ -85,7 +85,7 @@ Once the project is opened, you will need to ensure that you have that you have 
 
 Once you have ensured that the JSON server is installed, you'll have to run it in the directory where you cloned the repository. Enter this command in that directory: <code>json-server –watch db.json</code>
 
-If you are following my recommendation, open up the terminal on VS code and type: <code>explorer.exe index.html</code>
+Open up the <strong>index.html</strong> file with a browser of your choice.
 
 If you see the following page open up on your browser, then you have followed all instructions correctly:
 ![alt Successfully loaded application](./images/My%20Word%20Bank%20-%20Successfully%20Launched.png)
@@ -141,5 +141,26 @@ Here are some ideas that I am considering to have implemented in future versions
 </ul>
 
 ## Credits
+MIT License
 
-##
+Copyright (c) 2023 Adnan Wazwaz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Of course, credit goes to the developers at GitHub from <a href="https://github.com/meetDeveloper/freeDictionaryAPI">Free Dictionary API</a>.
