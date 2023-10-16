@@ -17,7 +17,7 @@ Adnanian Application #2
     3. [Technologies](#technologies)
     4. [Limitations](#limitations)
 2. [Installation & Execution](#installation--execution)
-    1. [Installation](#s)
+    1. [Installation](#installation)
     2. [Execution](#execution)
 3. [Usage](#usage)
     1. [Searching for a Word](#searching-for-a-word)
