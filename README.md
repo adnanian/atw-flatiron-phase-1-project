@@ -70,9 +70,29 @@ Once you have ensured that the JSON server is installed, you'll have to run it i
 If you are following my recommendation, open up the terminal on VS code and type: <code>explorer.exe index.html</code>
 
 If you see the following page open up on your browser, then you have followed all instructions correctly:
-<img src="My Word Bank - Successfully Launched" alt="Successfully loaded application."/>
+![alt Successfully loaded application](./images/My%20Word%20Bank%20-%20Successfully%20Launched.png)
 
 ## Usage
+
+As stated before, using this application is very straightforward. In this section, we will walkthrough with you each feature for this application.
+
+### Searching for a Word
+<ol>
+    <li>Type in a word in the search bar. Then press ENTER or click the <strong>Submit</strong> button.<br/><img src="./images/Word Search Example.png" alt="Word Search Example"/></li>
+</ol>
+
+#### Search Results Found
+<ol>
+    <li>If the word exists in the Free Dictionary API, you should see a result like this below:<br/><img src="./images/Result Display Example.png" alt="Result Display Example"/></li>
+    <li>Hover over the IPA to hear how the word is pronounced. The IPA will turn red and an audio file should automatically play the pronunciation to you.<br/><img src="./images/Hover for Pronunciation.png" alt="Hover for pronunciation."/></li>
+    <li>Scroll through each definition in the tables displayed and choose a definition that you like. Each definition is indexed by a category number enclosed in a yellow button. To add a word, click on the yellow button adjacent to the definition.<br/><img src="./images/Choose a Word to Save.png" alt="Choose a Word to Save"/></li>
+    <li>Once you clicked on a button to save a word, a green form with black text will be displayed to you, prompting you to confirm that you want to save the word with the current phonetic pronunciation, definition, and example. You may make modifications to these fields before submitting, and this will be updated to your glossary. However, note that you wouldn't be modifying the objects from the API itself. Click <strong>Submit</strong>, once you're finished.<br/><img src="./images/Glossary Form.png" alt="Add a word to the glossary example."/></li>
+</ol>
+
+#### Search Results Not Found
+<ol>
+    <li>If the word does not exist in the API, you will see a result as shown in the picture below. <b>Note:</b> the word, "nein", is German, but this is simply for demonstrative purposes. If you are confident that the word exists, below is a yellow button, which will take you to a definition search on Google in a new tab.<br/><img src="./images/No Result Display Example.png" alt="Example of a search result not being found."/></li>
+</ol>
 
 ## Credits
 
